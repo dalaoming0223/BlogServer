@@ -22,7 +22,7 @@ async function getAllBlog (req, res) {
   let currentPage = parseInt(req.query.page) || 1
   let filterTags = req.query.tag || []
   console.log(filterTags)
-  let queryResult = null // 查询结果
+  let queryResult = null // 查询
   let pageCount = 0
   const sortBy = 'updated_at'
   if (!Array.isArray(filterTags)) {

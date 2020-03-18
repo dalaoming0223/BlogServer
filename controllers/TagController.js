@@ -2,7 +2,7 @@
 const {
   Tag,
   User
-} = require('../model/model')
+} = require('../model/Model')
 const {
   response
 } = require('./Response')

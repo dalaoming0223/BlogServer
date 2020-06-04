@@ -10,7 +10,7 @@ const BlogRouter = require('./routes/blog')
 const TagRouter = require('./routes/tag')
 
 var app = express()
-app.use(cors({ credentials: true, origin: ['http://localhost:8080'] }))
+app.use(cors({ credentials: true, origin: ['http://localhost:8000'] }))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')

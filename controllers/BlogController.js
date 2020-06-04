@@ -21,7 +21,7 @@ async function getAllBlog (req, res) {
   const ret_data = {}
   let currentPage = parseInt(req.query.page) || 1
   let filterTags = req.query.tag || []
-  console.log(filterTags)
+  console.log('filterTags:', filterTags)
   let queryResult = null // 查询
   let pageCount = 0
   const sortBy = 'updated_at'
@@ -141,27 +141,18 @@ async function getBlogById (req, res) {
 
 async function AddBlog (req, res) {
   const ret_data = {}
-  const postData = req.body
-  // console.log(JSON.stringify(postData))
-  // console.log('能到这里不')
-  console.log(postData)
-  console.log(typeof postData.tags)
 
-  // let tags = JSON.parse(postData.tags)
-  let tags = postData.tags
-  // console.log(typeof tags)
+  let { title, content, desc, state, tags, user_id, uuid, category_id } = req.body
+  tags = JSON.parse(tags)
+
   if (!Array.isArray(tags)) {
     tags = [tags]
   }
 
-  const title = postData.title
-  const content = postData.content
-  const desc = postData.desc
-  const time = new Date()
+  const time = new Date().toLocaleString
   const created_at = time
   const updated_at = time
-  const state = 1
-  const user_id = postData.user_id
+  const origin = 0
 
   try {
     const tag_id_list = []
@@ -183,7 +174,7 @@ async function AddBlog (req, res) {
       }
     }
     const blog = await Blog.create({
-      title, content, desc, created_at, updated_at, state, user_id
+      title, content, desc, created_at, updated_at, state, origin, user_id, uuid, category_id
     })
     for (const tag_id of tag_id_list) {
       blog.setTags(tag_id)
@@ -195,6 +186,7 @@ async function AddBlog (req, res) {
     response(res, ret_data, 400)
   }
 }
+
 module.exports = {
   getAllBlog,
   getBlogById,

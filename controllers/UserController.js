@@ -5,30 +5,32 @@ const {
 const {
   response
 } = require('./Response')
+const jwt = require('jsonwebtoken')
+const { security } = require('../config/config')
 // get请求: req.body  post请求: req.params
+
 async function register (req, res) {
-  const postData = req.body
-  const email = postData.email
-  const password = postData.password
+  const ret_data = {}
+  const { username, password, email } = req.body
+  console.log(req.body)
   const time = new Date()
   const created_at = time
   const updated_at = time
+  const is_admin = 0
+  const is_active = 1
+
   try {
+    const encryptPass = security.md5(password)
+    const token = null
     const user = await User.create({
-      password,
-      email,
-      created_at,
-      updated_at
+      username, password: encryptPass, email, token, created_at, updated_at, is_admin, is_active
     })
-    res.status(201).send({
-      user
-    })
-  } catch (error) {
-    res.status(400).send({
-      code: 400,
-      error: '该用户已被注册'
-    })
-    console.log(error)
+    ret_data.id = user.id
+    response(res, ret_data, 201)
+    console.log('ok')
+  } catch (err) {
+    console.log(err.message)
+    response(res, ret_data, 400)
   }
 }
 
@@ -45,8 +47,8 @@ async function getUserById (req, res) {
       ret_data.data = user
       response(res, ret_data, 200, 0)
     }
-  } catch (error) {
-    console.log(error.message)
+  } catch (err) {
+    console.log(err.message)
     response(res, ret_data, 400)
   }
 }
@@ -59,7 +61,7 @@ async function getAllUser (req, res) {
     ret_data.total = user.length
     ret_data.page = 1
     response(res, ret_data, 200, 0)
-  } catch (error) {
+  } catch (err) {
     console.log(err.message)
     response(res, ret_data, 400)
   }

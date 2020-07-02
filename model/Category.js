@@ -1,42 +1,31 @@
-const {
-  sql,
-  Sequelize
-} = require('./sequelize')
+/**
+ * Category model module.
+ * @file 类型数据模型
+ * @module model/category
+ */
 
-const Category = sql.define('category', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
 
-  name: {
-    type: Sequelize.STRING(100),
-    allowNull: false
-  },
+const {sql,Sequelize} = require('./sequelize')
 
-  key: {
-    type: Sequelize.STRING(100),
-    allowNull: false
-  },
+let Category = sql.define('category',
+    {
+        id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
 
-  created_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
-  },
+        name: {type: Sequelize.STRING(100), allowNull: false},
 
-  updated_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
-  },
+        key: {type: Sequelize.STRING(100), allowNull: false},
 
-  state: Sequelize.SMALLINT
-}, {
-  timestamps: false,
-  freezeTableName: true,
-  underscored: true
-})
+        created_at: {type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.NOW},
+
+        updated_at: {type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.NOW},
+
+        state: {type: Sequelize.INTEGER, allowNull: false, defaultValue: 1}
+    },
+    {
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true
+    });
+
 
 module.exports = Category

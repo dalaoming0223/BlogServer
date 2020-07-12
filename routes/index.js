@@ -7,6 +7,7 @@ const commentController = require('../controller/comment');
 const tagController = require('../controller/tag')
 const cateController = require('../controller/cate')
 const likeController = require('../controller/like')
+const weiboController = require('../controller/weiboHotList')
 
 module.exports = app => {
     app.use(jwtController)
@@ -18,4 +19,5 @@ module.exports = app => {
     app.use('/api/tag', tagController)
     app.use('/api/cate', cateController)
     app.use('/api/like', likeController)
+    app.use('/api/weiboHotList', weiboController)
 }

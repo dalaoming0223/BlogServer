@@ -7,6 +7,7 @@ const jwtAuth = expressJwt({secret: security.secretKey}).unless({
         {url: '/api/auth/login', methods: ['POST']},
         {url: '/api/auth/register', methods: ['POST']},
         {url: '/api/blog', methods: ['GET']},
+        {url: '/api/weiboHotList', methods: ['GET']},
         {url: /^\/blog\/.*/, methods: ['GET']},
         {url: '/api/tag', methods: ['GET']},
         {url: '/api/blog', methods: ['POST']},
